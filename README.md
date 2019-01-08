@@ -1,2 +1,3 @@
 # learn_reactjs
-Learn Ract.js
+React.js学習用  
+Tutorialをすべて終わらせる

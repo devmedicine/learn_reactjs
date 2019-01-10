@@ -21,6 +21,10 @@ class Board extends React.Component {
 
   handleClick(i) {
     const squares = this.state.squares.slice()
+    // どちらかの勝利が確定している場合、マスを埋めれないようにキャンセルする。
+    if(calculateWinner(squares) || squares[i]){
+      return;
+    }
     squares[i] = this.state.xIsNext ? 'X' : 'O'
     this.setState({
       squares: squares,
@@ -41,7 +45,7 @@ class Board extends React.Component {
     const winner = calculateWinner(this.state.squares);
     let status;
     if(winner) {
-      status = 'Winner' + winner;
+      status = 'Winner: ' + winner;
     } else {
       status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O')
     }
@@ -85,6 +89,11 @@ class Game extends React.Component {
   }
 }
 
+/**
+ * 三目並べの勝利者を決定する関数
+ * @param squares マスの状態を保持した配列
+ * @returns {*} null or winner
+ */
 function calculateWinner(squares) {
   // 三目並べの勝利パターン
   const lines = [
